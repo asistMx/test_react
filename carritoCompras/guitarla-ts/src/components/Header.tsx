@@ -1,8 +1,19 @@
-import { useMemo } from "react"
+import type { CartItem, Guitar } from "../types"
 
-export default function Header({cart, removeFromCart, addGuitar,substractGuitar,clearCart, isEmpty, cartTotal}) {
 
-   
+
+type HeaderProps = {
+    cart: CartItem[]
+    removeFromCart: (guitar: Guitar) => void
+    addGuitar: (guitar: Guitar) => void
+    substractGuitar: (guitar: Guitar) => void
+    clearCart: () => void
+    isEmpty: boolean
+    cartTotal: number
+
+}
+
+export default function Header({cart, removeFromCart, addGuitar,substractGuitar,clearCart, isEmpty, cartTotal}: HeaderProps) {
 
   return (
     <header className="py-5 header">
@@ -10,14 +21,14 @@ export default function Header({cart, removeFromCart, addGuitar,substractGuitar,
             <div className="row justify-content-center justify-content-md-between">
                 <div className="col-8 col-md-3">
                     <a href="index.html">
-                        <img className="img-fluid" src="./public/img/logo.svg" alt="imagen logo" />
+                        <img className="img-fluid" src="/img/logo.svg" alt="imagen logo" />
                     </a>
                 </div>
                 <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
                     <div 
                         className="carrito"
                     >
-                        <img className="img-fluid" src="./public/img/carrito.png" alt="imagen carrito" />
+                        <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
 
                         <div id="carrito" className="bg-white p-3">
                             {
@@ -36,10 +47,10 @@ export default function Header({cart, removeFromCart, addGuitar,substractGuitar,
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {cart.map((item) => (
+                                {cart.map((item ) => (
                                     <tr key={item.id}>
                                         <td>
-                                            <img className="img-fluid" src={`./public/img/${item.image}.jpg`} alt="imagen guitarra" />
+                                            <img className="img-fluid" src={`/img/${item.image}.jpg`} alt="imagen guitarra" />
                                         </td>
                                         <td>{item.name}</td>
                                         <td className="fw-bold">
@@ -77,7 +88,6 @@ export default function Header({cart, removeFromCart, addGuitar,substractGuitar,
                             </table>
                             )
                         }
-
                             <p className="text-end">Total pagar: <span className="fw-bold">${cartTotal}</span></p>
                             <button className="btn btn-dark w-100 mt-3 p-2" onClick={clearCart}>Vaciar Carrito</button>
                         </div>

@@ -1,41 +1,44 @@
 import { useState, useEffect, useMemo } from 'react'
+import type {Guitar, CartItem } from '../types'
 
 export const useCart = () => {
 
-    const initializeCart = () => {
+    const initializeCart = () : CartItem[] => {
         const localStorageCart = localStorage.getItem('cart')
         return localStorageCart ? JSON.parse(localStorageCart) : []
      }
 
     const [cart, setCart] = useState(initializeCart)
 
-    const addToCart = (guitar) => {
+    const addToCart = (guitar: Guitar) => {
         const itemExist=cart.findIndex(item => item.id === guitar.id)
+
         if(itemExist >= 0){
-            const newCart = [...cart]
+            const newCart: CartItem[] = [...cart]
             newCart[itemExist].quantity++
             setCart(newCart)
         } else {
-            setCart([...cart, {...guitar, quantity: 1}])
+            const newItem: CartItem = {...guitar, quantity: 1}
+            setCart([...cart, newItem])
         }
     }
 
-    const removeFromCart = (guitar) => {
-        const newCart = cart.filter(item => item.id !== guitar.id)
+    const removeFromCart = (guitar: Guitar) => {
+        const newCart: CartItem[] = cart.filter(item => item.id !== guitar.id)
         setCart(newCart)
     }
 
-    const addGuitar = (guitar) => {
-        const newCart = [...cart]
-        const itemExist=cart.findIndex(item => item.id === guitar.id)
+    const addGuitar = (guitar: Guitar) => {
+        const newCart: CartItem[]  = [...cart]
+        const itemExist: number =cart.findIndex(item => item.id === guitar.id)
         newCart[itemExist].quantity++
         setCart(newCart)
     }
 
-    const substractGuitar = (guitar) => {
-        const itemExist=cart.findIndex(item => item.id === guitar.id)
+    const substractGuitar = (guitar: Guitar) => {
+        const itemExist: number =cart.findIndex(item => item.id === guitar.id)
         if(itemExist >= 0){
-            const newCart = [...cart]
+            const newCart: CartItem[] = [...cart]
             newCart[itemExist].quantity--
             if(newCart[itemExist].quantity === 0){
                 newCart.splice(itemExist, 1)
