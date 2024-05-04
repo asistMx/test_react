@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import Guitar from './components/Guitar'
-import {db} from './components/db.js'
-import Header from './components/Header.jsx'
-import { useCart } from './hooks/useCart.js'
+import { useState } from 'react'
+import Guitar from './components/Guitar.tsx'
+import {db} from './components/db.ts'
+import Header from './components/Header.tsx'
+import { useCart } from './hooks/useCart.ts'
 
 function App() {
 
